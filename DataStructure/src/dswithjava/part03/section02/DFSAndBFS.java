@@ -1,9 +1,14 @@
 package dswithjava.part03.section02;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 // 깊이 우선 탐색 (DFS :Depth-First Search) 
 // 너비 우선 탐색 (BFS :Breadth-First Search)
 
+
 //https://mygumi.tistory.com/102
+//DFS는 스택을 사용, BFS는 큐를 사용한다
 
 
 //이진 트리 깊이 우선(DFS) 순회 - 전위 (Preorder)
@@ -128,8 +133,26 @@ class MyTree {
   public void printBFS() {
 	  System.out.print("BFS 순회: ");
 	  /* 해당 메소드를 구현하시오. */
+	 
+	  //큐를 이용한 이진트리 BFS 구현
+	  Queue<Node> queue = new LinkedList<Node>();
 	  
-	  //4/22 수요일 여기까지 함
+	  queue.add(root);	//트리의 최상위 노드부터 시작
+	  
+	  while(!queue.isEmpty()) {
+		  
+		  Node firstNode = queue.poll();	//큐의 맨 앞 노드를 꺼내옴
+		  
+		  if(firstNode.leftChild != null) {
+			  queue.add(firstNode.leftChild);	//꺼내온 노드의 왼쪽 자식노드가 있다면 큐에 넣기 
+		  }
+		  if(firstNode.rightChild != null) {
+			  queue.add(firstNode.rightChild);	//꺼내온 노드의 오른쪽 자식노드가 있다면 큐에 넣기 
+		  }
+		  //큐에서 꺼냈던 노드의 모든 자식노드를 검사후 큐에 넣은 후, 순회의 의미로 data 출력
+		  System.out.printf("%d ", firstNode.data);
+	  }	//큐에 더이상 노드가 남지 않을때까지 실행
+	  
 	  
 	  System.out.println();
   }
